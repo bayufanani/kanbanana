@@ -11,7 +11,8 @@ class ProjectsController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Projects/index');
+        $projects = DB::select("SELECT * FROM projects WHERE user_id=" . auth()->user()->id . " ORDER BY created_at DESC");
+        return Inertia::render('Projects/index', ['projects' => $projects]);
     }
 
     public function create(): Response
@@ -23,10 +24,10 @@ class ProjectsController extends Controller
     {
         // insert using eloquent query builder to table projects with nama, deskripsi and current user session id
         DB::table('projects')->insert([
-            'nama' => $req->nama,
+            'name' => $req->nama,
             'deskripsi' => $req->deskripsi,
             'user_id' => auth()->user()->id
         ]);
-        return json_encode(['status' => 'ok']);
+        return to_route('projects.index');
     }
 }

@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Card from "@/Components/Card.vue";
 import LinkButton from "@/Components/LinkButton.vue";
-defineProps(["new_project_url"]);
+defineProps(["projects"]);
 </script>
 <template>
     <AuthenticatedLayout>
@@ -20,9 +20,12 @@ defineProps(["new_project_url"]);
                         class="mb-2"
                     />
                     <div class="flex flex-wrap">
-                        <div v-for="item in 5" class="w-1/5 pr-2">
+                        <div v-for="item in projects" class="w-1/5 pr-2">
                             <Card>
-                                {{ item }}
+                                <p>
+                                    {{ item.name }}
+                                </p>
+                                <p>{{ item.deskripsi }}</p>
                             </Card>
                         </div>
                     </div>
